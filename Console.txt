@@ -1,0 +1,314 @@
+// 1. Используя команду cat в терминале операционной системы Linux, создать
+два файла Домашние животные (заполнив файл собаками, кошками,
+хомяками) и Вьючные животными заполнив файл Лошадьми, верблюдами и
+ослы), а затем объединить их. Просмотреть содержимое созданного файла.
+Переименовать файл, дав ему новое имя (Друзья человека).
+
+wladgoose@wladgoose-VirtualBox:~$ mkdir Animals_base
+wladgoose@wladgoose-VirtualBox:~$ cd Animals_base/
+wladgoose@wladgoose-VirtualBox:~/Animals_base$ cat > home_animals
+dog, cat, homack
+^C
+wladgoose@wladgoose-VirtualBox:~/Animals_base$ cat > pack_animals
+hourse, verbluds, ocel
+^C
+wladgoose@wladgoose-VirtualBox:~/Animals_base$ cat home_animals pack_animals > animals
+wladgoose@wladgoose-VirtualBox:~/Animals_base$ cat animals 
+dog, cat, homack
+hourse, verbluds, ocel
+wladgoose@wladgoose-VirtualBox:~/Animals_base$ mv animals mans_friends
+wladgoose@wladgoose-VirtualBox:~/Animals_base$ ls -ali
+итого 20
+4457164 drwxrwxr-x  2 wladgoose wladgoose 4096 дек  7 13:48 .
+4456450 drwxr-x--- 16 wladgoose wladgoose 4096 дек  7 13:45 ..
+4457401 -rw-rw-r--  1 wladgoose wladgoose   17 дек  7 13:46 home_animals
+4457416 -rw-rw-r--  1 wladgoose wladgoose   40 дек  7 13:48 mans_friends
+4457171 -rw-rw-r--  1 wladgoose wladgoose   23 дек  7 13:47 pack_animals
+===================================================================================
+//2. Создать директорию, переместить файл туда
+wladgoose@wladgoose-VirtualBox:~/Animals_base$ cd ..
+wladgoose@wladgoose-VirtualBox:~$ mkdir Animals_sys
+wladgoose@wladgoose-VirtualBox:~$ cd Animals_base/
+wladgoose@wladgoose-VirtualBox:~/Animals_base$ mv mans_friends ~/Animals_sys/
+wladgoose@wladgoose-VirtualBox:~/Animals_base$ cd ~/Animals_sys/
+wladgoose@wladgoose-VirtualBox:~/Animals_sys$ ls -ali
+итого 12
+4457427 drwxrwxr-x  2 wladgoose wladgoose 4096 дек  7 13:49 .
+4456450 drwxr-x--- 17 wladgoose wladgoose 4096 дек  7 13:49 ..
+4457416 -rw-rw-r--  1 wladgoose wladgoose   40 дек  7 13:48 mans_friends
+====================================================================================
+//3. Подключить дополнительный репозиторий MySQL. Установить любой пакет
+из этого репозитория.
+
+wladgoose@wladgoose-VirtualBox:~/Animals_sys$ sudo wget https://dev.mysql.com/get/mysql-apt-config_0.8.23-1_all.deb
+[sudo] пароль для wladgoose: 
+--2023-12-07 13:51:15--  https://dev.mysql.com/get/mysql-apt-config_0.8.23-1_all.deb
+Распознаётся dev.mysql.com (dev.mysql.com)… 184.51.238.43, 2a02:26f0:d200:493::2e31, 2a02:26f0:d200:48c::2e31
+Подключение к dev.mysql.com (dev.mysql.com)|184.51.238.43|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… 302 Moved Temporarily
+Адрес: https://repo.mysql.com//mysql-apt-config_0.8.23-1_all.deb [переход]
+--2023-12-07 13:51:16--  https://repo.mysql.com//mysql-apt-config_0.8.23-1_all.deb
+Распознаётся repo.mysql.com (repo.mysql.com)… 104.81.113.179, 2a02:26f0:480:78d::1d68, 2a02:26f0:480:787::1d68
+Подключение к repo.mysql.com (repo.mysql.com)|104.81.113.179|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… 200 OK
+Длина: 18028 (18K) [application/x-debian-package]
+Сохранение в: ‘mysql-apt-config_0.8.23-1_all.deb’
+
+mysql-apt-config_0. 100%[===================>]  17,61K  --.-KB/s    за 0s      
+
+2023-12-07 13:51:16 (37,4 MB/s) - ‘mysql-apt-config_0.8.23-1_all.deb’ сохранён [18028/18028]
+
+wladgoose@wladgoose-VirtualBox:~/Animals_sys$ sudo dpkg -i mysql-apt-config_0.8.23-1_all.deb
+Выбор ранее не выбранного пакета mysql-apt-config.
+(Чтение базы данных … на данный момент установлено 203280 файлов и каталогов.)
+Подготовка к распаковке mysql-apt-config_0.8.23-1_all.deb …
+Распаковывается mysql-apt-config (0.8.23-1) …
+Настраивается пакет mysql-apt-config (0.8.23-1) …
+Warning: apt-key should not be used in scripts (called from postinst maintainerscript of the package mysql-apt-config)
+Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+OK
+wladgoose@wladgoose-VirtualBox:~/Animals_sys$ sudo apt-get update
+Пол:1 http://repo.mysql.com/apt/ubuntu jammy InRelease [20,2 kB]
+Сущ:2 http://ru.archive.ubuntu.com/ubuntu jammy InRelease                      
+Пол:3 http://ru.archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]     
+Пол:4 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]      
+Пол:5 http://ru.archive.ubuntu.com/ubuntu jammy-backports InRelease [109 kB]
+Пол:6 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 Sources [963 B]     
+Пол:7 http://ru.archive.ubuntu.com/ubuntu jammy-updates/main i386 Packages [540 kB]
+Пол:8 http://repo.mysql.com/apt/ubuntu jammy/mysql-apt-config i386 Packages [565 B]
+Пол:9 http://ru.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [1 225 kB]
+Пол:10 http://repo.mysql.com/apt/ubuntu jammy/mysql-apt-config amd64 Packages [565 B]
+Пол:11 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 Packages [12,6 kB]
+Пол:12 http://ru.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [255 kB]
+Пол:13 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [1 016 kB]
+Пол:14 http://ru.archive.ubuntu.com/ubuntu jammy-updates/main amd64 DEP-11 Metadata [101 kB]
+Пол:15 http://ru.archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [16,1 kB]
+Пол:16 http://ru.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [1 199 kB]
+Пол:17 http://repo.mysql.com/apt/ubuntu jammy/mysql-tools i386 Packages [457 B]
+Пол:18 http://repo.mysql.com/apt/ubuntu jammy/mysql-tools amd64 Packages [7 994 B]
+Пол:19 http://ru.archive.ubuntu.com/ubuntu jammy-updates/restricted i386 Packages [32,8 kB]
+Пол:20 http://ru.archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [194 kB]
+Пол:21 http://ru.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 c-n-f Metadata [520 B]
+Пол:22 http://ru.archive.ubuntu.com/ubuntu jammy-updates/universe i386 Packages [675 kB]
+Пол:23 http://ru.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1 018 kB]
+Пол:24 http://security.ubuntu.com/ubuntu jammy-security/main i386 Packages [376 kB]
+Пол:25 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [195 kB]
+Пол:26 http://security.ubuntu.com/ubuntu jammy-security/main amd64 DEP-11 Metadata [43,0 kB]
+Пол:27 http://security.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [11,4 kB]
+Пол:28 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [1 179 kB]
+Пол:29 http://security.ubuntu.com/ubuntu jammy-security/restricted i386 Packages [32,4 kB]
+Пол:30 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [191 kB]
+Пол:31 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 c-n-f Metadata [520 B]
+Пол:32 http://security.ubuntu.com/ubuntu jammy-security/universe i386 Packages [577 kB]
+Пол:33 http://ru.archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [226 kB]
+Пол:34 http://ru.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 DEP-11 Metadata [305 kB]
+Пол:35 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [815 kB]
+Пол:36 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [152 kB]
+Пол:37 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 DEP-11 Metadata [55,1 kB]
+Пол:38 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [16,8 kB]
+Пол:39 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [36,5 kB]
+Пол:40 http://ru.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [22,1 kB]
+Пол:41 http://ru.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [41,6 kB]
+Пол:42 http://ru.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 DEP-11 Metadata [940 B]
+Пол:43 http://ru.archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 c-n-f Metadata [472 B]
+Пол:44 http://ru.archive.ubuntu.com/ubuntu jammy-backports/main amd64 DEP-11 Metadata [4 932 B]
+Пол:45 http://ru.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [27,8 kB]
+Пол:46 http://ru.archive.ubuntu.com/ubuntu jammy-backports/universe i386 Packages [16,8 kB]
+Пол:47 http://ru.archive.ubuntu.com/ubuntu jammy-backports/universe Translation-en [16,5 kB]
+Пол:48 http://ru.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 DEP-11 Metadata [18,9 kB]
+Пол:49 http://ru.archive.ubuntu.com/ubuntu jammy-backports/universe DEP-11 64x64 Icons [25,6 kB]
+Пол:50 http://ru.archive.ubuntu.com/ubuntu jammy-backports/universe amd64 c-n-f Metadata [644 B]
+Пол:51 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 c-n-f Metadata [260 B]
+Получено 11,0 MB за 3с (3 361 kB/s)         
+Чтение списков пакетов… Готово
+W: http://repo.mysql.com/apt/ubuntu/dists/jammy/InRelease: Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details.
+wladgoose@wladgoose-VirtualBox:~/Animals_sys$ sudo apt-get install mysql-server
+Чтение списков пакетов… Готово
+Построение дерева зависимостей… Готово
+Чтение информации о состоянии… Готово         
+Будут установлены следующие дополнительные пакеты:
+  libaio1 libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client
+  mysql-common mysql-community-client mysql-community-client-core
+  mysql-community-client-plugins mysql-community-server
+  mysql-community-server-core
+Следующие НОВЫЕ пакеты будут установлены:
+  libaio1 libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client
+  mysql-common mysql-community-client mysql-community-client-core
+  mysql-community-client-plugins mysql-community-server
+  mysql-community-server-core mysql-server
+Обновлено 0 пакетов, установлено 13 новых пакетов, для удаления отмечено 0 пакетов, и 108 пакетов не обновлено.
+Необходимо скачать 37,8 MB архивов.
+После данной операции объём занятого дискового пространства возрастёт на 273 MB.
+Хотите продолжить? [Д/н] y
+Пол:1 http://ru.archive.ubuntu.com/ubuntu jammy/main amd64 libaio1 amd64 0.3.112-13build1 [7 176 B]
+Пол:2 http://ru.archive.ubuntu.com/ubuntu jammy/main amd64 libmecab2 amd64 0.996-14build9 [199 kB]
+Пол:3 http://ru.archive.ubuntu.com/ubuntu jammy/main amd64 mecab-utils amd64 0.996-14build9 [4 850 B]
+Пол:4 http://ru.archive.ubuntu.com/ubuntu jammy/main amd64 mecab-ipadic all 2.7.0-20070801+main-3 [6 718 kB]
+Пол:5 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 mysql-common amd64 8.0.35-1ubuntu22.04 [67,9 kB]
+Пол:6 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 mysql-community-client-plugins amd64 8.0.35-1ubuntu22.04 [1 443 kB]
+Пол:7 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 mysql-community-client-core amd64 8.0.35-1ubuntu22.04 [2 120 kB]
+Пол:8 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 mysql-community-client amd64 8.0.35-1ubuntu22.04 [2 195 kB]
+Пол:9 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 mysql-client amd64 8.0.35-1ubuntu22.04 [66,6 kB]
+Пол:10 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 mysql-community-server-core amd64 8.0.35-1ubuntu22.04 [24,8 MB]
+Пол:11 http://ru.archive.ubuntu.com/ubuntu jammy/main amd64 mecab-ipadic-utf8 all 2.7.0-20070801+main-3 [4 384 B]
+Пол:12 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 mysql-community-server amd64 8.0.35-1ubuntu22.04 [78,3 kB]
+Пол:13 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 mysql-server amd64 8.0.35-1ubuntu22.04 [66,6 kB]
+Получено 37,8 MB за 4с (9 759 kB/s)        
+Предварительная настройка пакетов …
+Выбор ранее не выбранного пакета mysql-common.
+(Чтение базы данных … на данный момент установлено 203285 файлов и каталогов.)
+Подготовка к распаковке …/00-mysql-common_8.0.35-1ubuntu22.04_amd64.deb …
+Распаковывается mysql-common (8.0.35-1ubuntu22.04) …
+Выбор ранее не выбранного пакета mysql-community-client-plugins.
+Подготовка к распаковке …/01-mysql-community-client-plugins_8.0.35-1ubuntu22.04_amd64.deb …
+Распаковывается mysql-community-client-plugins (8.0.35-1ubuntu22.04) …
+Выбор ранее не выбранного пакета mysql-community-client-core.
+Подготовка к распаковке …/02-mysql-community-client-core_8.0.35-1ubuntu22.04_amd64.deb …
+Распаковывается mysql-community-client-core (8.0.35-1ubuntu22.04) …
+Выбор ранее не выбранного пакета mysql-community-client.
+Подготовка к распаковке …/03-mysql-community-client_8.0.35-1ubuntu22.04_amd64.deb …
+Распаковывается mysql-community-client (8.0.35-1ubuntu22.04) …
+Выбор ранее не выбранного пакета mysql-client.
+Подготовка к распаковке …/04-mysql-client_8.0.35-1ubuntu22.04_amd64.deb …
+Распаковывается mysql-client (8.0.35-1ubuntu22.04) …
+Выбор ранее не выбранного пакета libaio1:amd64.
+Подготовка к распаковке …/05-libaio1_0.3.112-13build1_amd64.deb …
+Распаковывается libaio1:amd64 (0.3.112-13build1) …
+Выбор ранее не выбранного пакета libmecab2:amd64.
+Подготовка к распаковке …/06-libmecab2_0.996-14build9_amd64.deb …
+Распаковывается libmecab2:amd64 (0.996-14build9) …
+Выбор ранее не выбранного пакета mysql-community-server-core.
+Подготовка к распаковке …/07-mysql-community-server-core_8.0.35-1ubuntu22.04_amd64.deb …
+Распаковывается mysql-community-server-core (8.0.35-1ubuntu22.04) …
+Выбор ранее не выбранного пакета mysql-community-server.
+Подготовка к распаковке …/08-mysql-community-server_8.0.35-1ubuntu22.04_amd64.deb …
+Распаковывается mysql-community-server (8.0.35-1ubuntu22.04) …
+Выбор ранее не выбранного пакета mecab-utils.
+Подготовка к распаковке …/09-mecab-utils_0.996-14build9_amd64.deb …
+Распаковывается mecab-utils (0.996-14build9) …
+Выбор ранее не выбранного пакета mecab-ipadic.
+Подготовка к распаковке …/10-mecab-ipadic_2.7.0-20070801+main-3_all.deb …
+Распаковывается mecab-ipadic (2.7.0-20070801+main-3) …
+Выбор ранее не выбранного пакета mecab-ipadic-utf8.
+Подготовка к распаковке …/11-mecab-ipadic-utf8_2.7.0-20070801+main-3_all.deb …
+Распаковывается mecab-ipadic-utf8 (2.7.0-20070801+main-3) …
+Выбор ранее не выбранного пакета mysql-server.
+Подготовка к распаковке …/12-mysql-server_8.0.35-1ubuntu22.04_amd64.deb …
+Распаковывается mysql-server (8.0.35-1ubuntu22.04) …
+Настраивается пакет libmecab2:amd64 (0.996-14build9) …
+Настраивается пакет mysql-common (8.0.35-1ubuntu22.04) …
+update-alternatives: используется /etc/mysql/my.cnf.fallback для предоставления /etc/mysql/my.cnf (my.cnf) в автоматическом режиме
+Настраивается пакет mecab-utils (0.996-14build9) …
+Настраивается пакет mysql-community-client-plugins (8.0.35-1ubuntu22.04) …
+Настраивается пакет libaio1:amd64 (0.3.112-13build1) …
+Настраивается пакет mecab-ipadic (2.7.0-20070801+main-3) …
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: используется /var/lib/mecab/dic/ipadic для предоставления /var/lib/mecab/dic/debian (mecab-dictionary) в автоматическом режиме
+Настраивается пакет mysql-community-client-core (8.0.35-1ubuntu22.04) …
+Настраивается пакет mysql-community-server-core (8.0.35-1ubuntu22.04) …
+Настраивается пакет mecab-ipadic-utf8 (2.7.0-20070801+main-3) …
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: используется /var/lib/mecab/dic/ipadic-utf8 для предоставления /var/lib/mecab/dic/debian (mecab-dictionary) в автоматическом режиме
+Настраивается пакет mysql-community-client (8.0.35-1ubuntu22.04) …
+Настраивается пакет mysql-client (8.0.35-1ubuntu22.04) …
+Настраивается пакет mysql-community-server (8.0.35-1ubuntu22.04) …
+update-alternatives: используется /etc/mysql/mysql.cnf для предоставления /etc/mysql/my.cnf (my.cnf) в автоматическом режиме
+Created symlink /etc/systemd/system/multi-user.target.wants/mysql.service → /lib/systemd/system/mysql.service.
+Настраивается пакет mysql-server (8.0.35-1ubuntu22.04) …
+Обрабатываются триггеры для man-db (2.10.2-1) …
+Обрабатываются триггеры для libc-bin (2.35-0ubuntu3.4) …
+=======================================================================================================================
+// 4. Установить и удалить deb-пакет с помощью dpkg.
+wladgoose@wladgoose-VirtualBox:~/Animals_sys$ sudo wget https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-ce-cli_20.10.13~3-0~ubuntu-jammy_amd64.deb
+[sudo] пароль для wladgoose: 
+--2023-12-07 14:14:28--  https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-ce-cli_20.10.13~3-0~ubuntu-jammy_amd64.deb
+Распознаётся download.docker.com (download.docker.com)… 65.9.55.127, 65.9.55.90, 65.9.55.48, ...
+Подключение к download.docker.com (download.docker.com)|65.9.55.127|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… 200 OK
+Длина: 40955778 (39M) [binary/octet-stream]
+Сохранение в: ‘docker-ce-cli_20.10.13~3-0~ubuntu-jammy_amd64.deb’
+
+docker-ce-cli_20.10 100%[===================>]  39,06M  10,5MB/s    за 3,9s    
+
+2023-12-07 14:14:33 (10,1 MB/s) - ‘docker-ce-cli_20.10.13~3-0~ubuntu-jammy_amd64.deb’ сохранён [40955778/4wlwlwladgwwwwlwwlwwladgoose@wladgoose-VirtualBox:~/Animals_sys$ sudo dpkg -i docker-ce-cli_20.10.13~3-0~ubuntu-jammy_amd64.deb
+Выбор ранее не выбранного пакета docker-ce-cli.
+(Чтение базы данных … на данный момент установлено 203848 файлов и каталогов.)
+Подготовка к распаковке docker-ce-cli_20.10.13~3-0~ubuntu-jammy_amd64.deb …
+Распаковывается docker-ce-cli (5:20.10.13~3-0~ubuntu-jammy) …
+Настраивается пакет docker-ce-cli (5:20.10.13~3-0~ubuntu-jammy) …
+Обрабатываются триггеры для man-db (2.10.2-1) …
+wladgoose@wladgoose-VirtualBox:~/Animals_sys$ sudo dpkg -r docker-ce-cli
+(Чтение базы данных … на данный момент установлено 204046 файлов и каталогов.)
+Удаляется docker-ce-cli (5:20.10.13~3-0~ubuntu-jammy) …
+Обрабатываются триггеры для man-db (2.10.2-1) …
+wladgoose@wladgoose-VirtualBox:~/Animals_sys$ 
+
+
